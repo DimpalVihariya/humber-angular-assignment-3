@@ -41,6 +41,15 @@ export class DataStoreService {
     });
   }
 
+  addToOrder(item: OrderData) {
+    this._orders.pipe(
+      take(1)
+    ).subscribe((orderItems: OrderData[]) => {
+      orderItems.push(item);
+      this._orders.next(orderItems);
+    });
+  }
+
   filterProducts(text: string) {
     this._products.pipe(
       take(1)

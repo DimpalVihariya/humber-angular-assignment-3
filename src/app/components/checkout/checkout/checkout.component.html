@@ -1,0 +1,141 @@
+<div class="checkout-component">
+  <div class="row">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div class="col-75">
+      <div class="container">
+          <div class="row">
+            <div class="col-50">
+              <h3>Billing Address</h3>
+              <label for="fname"><i class="fa fa-user"></i> First Name</label>
+              <input formControlName="fname" type="text" id="fname" placeholder="John" class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['fname'].errors }"/>
+              <div *ngIf="submitted" class="sr-field-error">
+              <div *ngIf="f['fname'].errors && f['fname'].errors['required']">FirstName is required</div>
+              </div>
+              <label for="Lastname"><i class="fa fa-envelope"></i> Last Name</label>
+              <input formControlName="lname" type="text"
+              id="lname"
+              placeholder="sibin"
+              autocomplete="cardholder"
+              class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['lname'].errors }"/>
+               <div *ngIf="f['lname'].touched && f['lname'].invalid || f['lname'].untouched && submitted" class="sr-field-error">
+               <div *ngIf="f['lname'].errors && f['lname'].errors['required']">Last Name is required.</div>
+               <div *ngIf="f['lname'].errors && f['lname'].errors['lname']">Please, enter valid LastName.</div>
+              </div>
+
+              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+              <input formControlName="address" type="text"
+              id="address"
+              placeholder="542 W. 15th Street"
+              autocomplete="cardholder"
+              class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"/>
+               <div *ngIf="f['address'].touched && f['address'].invalid || f['address'].untouched && submitted" class="sr-field-error">
+               <div *ngIf="f['address'].errors && f['address'].errors['required']">address is required.</div>
+               <div *ngIf="f['address'].errors && f['address'].errors['address']">Please, enter valid address.</div>
+              </div>
+
+              <label for="city"><i class="fa fa-institution"></i> City</label>
+              <input formControlName="city" type="text"
+              id="city"
+              placeholder="New York"
+              autocomplete="cardholder"
+              class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['city'].errors }"/>
+               <div *ngIf="f['city'].touched && f['city'].invalid || f['city'].untouched && submitted" class="sr-field-error">
+               <div *ngIf="f['city'].errors && f['city'].errors['required']">city is required.</div>
+               <div *ngIf="f['city'].errors && f['city'].errors['city']">Please, enter valid city.</div>
+              </div>
+
+              <label for="Postalcode"><i class="fa fa-institution"></i> Postal Code</label>
+              <input formControlName="postalcode" type="text" id="postalcode" placeholder="M8T3JK" autocomplete="cardholder" class="textbox"
+               [ngClass]="{ 'is-invalid': submitted && f['postalcode'].errors }"/>
+               <div *ngIf="f['postalcode'].touched && f['postalcode'].invalid || f['postalcode'].untouched && submitted" class="sr-field-error">
+               <div *ngIf="f['postalcode'].errors && f['postalcode'].errors['required']">postalcode is required.</div>
+               <div *ngIf="f['postalcode'].errors && f['postalcode'].errors['postalcode']">Please, enter valid postalcode.</div>
+              </div>
+              <label for="Country"><i class="fa fa-institution"></i>Country</label>
+                 <select formControlName="country" class="textbox">
+                <option disabled>Select Country</option>             
+                <option *ngFor="let count of Country">{{count}}</option>
+              </select>
+               <div *ngIf="f['country'].touched && f['country'].invalid || f['country'].untouched && submitted" class="sr-field-error">
+              <div *ngIf="f['country'].errors && f['country'].errors['required']">Country selection is required.</div>
+              </div>
+        
+            </div>
+
+              <div class="col-50">
+              <h3>Payment</h3>
+              <label for="fname">Accepted Cards</label>         
+              <select formControlName="country" class="textbox">
+              <option disabled>Select CardType</option>             
+              <option *ngFor="let cardt of CardType">{{cardt}}</option>
+              </select>
+              <div *ngIf="f['country'].touched && f['country'].invalid || f['country'].untouched && submitted" class="sr-field-error">
+              <div *ngIf="f['country'].errors && f['country'].errors['required']">Country selection is required.</div>
+              </div>  
+              <label for="cname">Name on Card</label>
+              <input formControlName="cname" type="text" id="cname" name ="cardname" placeholder="John kk" class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['cname'].errors }"/>
+              <div *ngIf="submitted" class="sr-field-error">
+              <div *ngIf="f['cname'].errors && f['cname'].errors['required']">Name on card is required</div>
+              </div>
+              <label for="ccnum">Credit card number</label>
+              <input formControlName="ccnum" type="text" id="ccnum" name ="ccnum" placeholder="1234567891011123" class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['ccnum'].errors }" onlyNumbers/>
+              <div *ngIf="submitted || f['ccnum'].touched && f['ccnum'].invalid" class="sr-field-error">
+                <div *ngIf="f['ccnum'].errors && f['ccnum'].errors['required']">CVV is required.</div>
+                <div *ngIf="f['ccnum'].errors && f['ccnum'].errors['minlength']">cvv should be 16 digits.</div>
+                <div *ngIf="f['ccnum'].errors && f['ccnum'].errors['maxlength']">cvv should be max 16 digits.</div>
+                <div *ngIf="f['ccnum'].errors && f['ccnum'].errors['pattern']">Only Allow Numbers.</div>
+                </div>
+
+              <label for="expmonth">Expiry</label>       
+              <input formControlName="expdate" type="text" id="expdate" name ="expdate" placeholder="06/2022" class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['expdate'].errors }" onlyNumbers/>
+              <div *ngIf="submitted || f['expdate'].touched && f['ccnum'].invalid" class="sr-field-error">
+                <div *ngIf="f['expdate'].errors && f['expdate'].errors['required']">CVV is required.</div>              
+                <div *ngIf="f['expdate'].errors && f['expdate'].errors['pattern']">Only Allow formatted date .</div>
+                </div>
+
+              <label for="cvv">CVV</label>
+              <input formControlName="cvv" type="text" id="cvv" name ="cvv" placeholder="5678" class="textbox"
+              [ngClass]="{ 'is-invalid': submitted && f['cvv'].errors }" onlyNumbers/>
+              <div *ngIf="submitted || f['cvv'].touched && f['cvv'].invalid" class="sr-field-error">
+                <div *ngIf="f['cvv'].errors && f['cvv'].errors['required']">CVV is required.</div>
+                <div *ngIf="f['cvv'].errors && f['cvv'].errors['minlength']">cvv should be 4 digits.</div>
+                <div *ngIf="f['cvv'].errors && f['cvv'].errors['maxlength']">cvv should be max 4 digits.</div>
+                <div *ngIf="f['cvv'].errors && f['cvv'].errors['pattern']">Only Allow Numbers.</div>
+                </div>
+              <div class="row">
+                 <div class="col-25">
+                  <!-- <label for="expyear">Exp Year</label>
+                  <input type="text" id="expyear" name="expyear" placeholder="2018"> -->
+                </div>
+                <div class="col-25">
+                  <!-- <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" placeholder="352"> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <button mat-button class="btn" [disabled]="!checkoutForm.valid" >Checkout</button>
+          <div class="sr-field-error" id="card-errors" role="alert"></div>
+      </div>
+    </div>
+  </form>
+    <div class="col-25" *ngIf="(cartItems$ | async)?.length">
+      <div class="container">
+        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{(cartItems$ | async)?.length}}</b></span></h4>
+        <div *ngFor="let item of (cartItems$ | async)">
+        <p><a href="">{{item.name}}</a> <span class="price">{{item.price}}</span></p>
+        </div>
+        <hr>
+        <p>Total <span class="price" style="color:black"><b>{{total}}</b></span></p>
+      </div>
+
+    </div>
+  </div>
+</div>
